@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 
 
-public interface CourseRepository extends JpaRepository<Course, Long> {
+public interface CourseRepository extends CrudRepository<Course, Long> {
 	List<Course> findByCourseName(String courseName);
 
 }

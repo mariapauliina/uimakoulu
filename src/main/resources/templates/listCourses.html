@@ -20,6 +20,16 @@
     		<td th:text="${course.date}"></td>   
     		<td th:text="${course.time}"></td> 
     		<td th:text="${course.coach}"></td> 
+    		
+    		<td><a th:href="@{/delete/{id}(id=${course.id})}">Delete</a><td>
+    		<td><a th:href="@{/editCourse/{id}(id=${course.id})}" style="color: blue;">Edit</a></td>
+    		
+    		
+    		<tr>
+    	<td>
+    	<a th:href="@{/showForm}">Add new course</a>
+    	</td>
+    	</tr>
     </table>
 </body>
 </html>

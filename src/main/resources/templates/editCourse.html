@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>=)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body></body>
+<table>
+<form th:action="@{/editCourse}" th:object="${course}" method="post">
+    <label for="courseName">Title:</label>
+        <input type="text" id="courseName" name="courseName" required><br>
+
+        <label for="place">place:</label>
+        <input type="text" id="place" name="place" required><br>
+
+        <label for="date">Published Year:</label>
+        <input type="date" id="date" name="date" required><br>
+        
+         <label for="time">time:</label>
+        <input type="text" id="time" name="time" required><br>
+        
+        <label for="coach">coach:</label>
+        <input type="text" id="coach" name="coach" required><br>
+        
+    <input type="hidden" th:field="*{id}" />
+   
+    <button type="submit">Save Changes</button>
+</form>
+
+</table>
+</html>
