@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>Kurssien Lista</h2>
+    <table border="0">
+        <tr>
+            <th>Kurssin Nimi</th> 
+            <th>Paikka</th>
+            <th>Kurssin Päivä</th>
+            <th>Aika</th>
+            <th>Ohjaaja</th>
+        </tr>
+       <tr th:each = "course : ${courses}">
+    		<td th:text="${course.courseName}"></td>
+    		<td th:text="${course.place}"></td>    
+    		<td th:text="${course.date}"></td>   
+    		<td th:text="${course.time}"></td> 
+    		<td th:text="${course.coach}"></td> 
+    </table>
+</body>
+</html>
