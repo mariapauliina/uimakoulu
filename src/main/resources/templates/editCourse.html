@@ -1,31 +1,48 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>=)</title>
+    <title>Edit Course</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/bootstrap.min.css">
 </head>
-<body></body>
-<table>
-<form th:action="@{/editCourse}" th:object="${course}" method="post">
-    <label for="courseName">Title:</label>
-        <input type="text" id="courseName" name="courseName" required><br>
+<body>
 
-        <label for="place">place:</label>
-        <input type="text" id="place" name="place" required><br>
+<div class="card">
+    <div class="card-body">
+        <form th:action="@{/editCourse}" th:object="${course}" method="post">
 
-        <label for="date">Published Year:</label>
-        <input type="date" id="date" name="date" required><br>
-        
-         <label for="time">time:</label>
-        <input type="text" id="time" name="time" required><br>
-        
-        <label for="coach">coach:</label>
-        <input type="text" id="coach" name="coach" required><br>
-        
-    <input type="hidden" th:field="*{id}" />
-   
-    <button type="submit">Save Changes</button>
-</form>
+            <div class="form-group">
+                <label for="courseName">Kurssin nimi:</label>
+                <input type="text" class="form-control" id="courseName" name="courseName" th:value="${course.courseName}" required>
+            </div>
 
-</table>
+            <div class="form-group">
+                <label for="place">Paikka:</label>
+                <input type="text" class="form-control" id="place" name="place" th:value="${course.place}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Kurssin ajankohta:</label>
+                <input type="date" class="form-control" id="date" name="date" th:value="${course.date}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="time">Aika:</label>
+                <input type="text" class="form-control" id="time" name="time" th:value="${course.time}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="coach">Ohjaaja:</label>
+                <input type="text" class="form-control" id="coach" name="coach" th:value="${course.coach}" required>
+            </div>
+
+            <input type="hidden" th:field="*{id}" />
+
+            <button type="submit" class="btn btn-success">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+
+</body>
 </html>

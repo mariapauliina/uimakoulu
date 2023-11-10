@@ -40,7 +40,7 @@ public class UimakouluController {
 		return"redirect:listCourses";
 	} 
 	
-	@RequestMapping(value="delete{id}", method = RequestMethod.GET) //kurssin poistaminen
+	@GetMapping(value="/delete/{id}") //kurssin poistaminen
 	public String deleteCourse(@PathVariable("id") Long courseId, Model model) {
 		repository.deleteById(courseId);
 		return"redirect:/listCourses";
@@ -58,6 +58,8 @@ public class UimakouluController {
 	        repository.save(course); 
 	        return "redirect:/listCourses";
 	    }
+	    
+	    
 	
 	
 }

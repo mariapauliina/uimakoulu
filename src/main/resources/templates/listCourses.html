@@ -1,35 +1,45 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+
+    <title>Kurssien Lista</title>
 </head>
+
 <body>
-<h2>Kurssien Lista</h2>
-    <table border="0">
-        <tr>
-            <th>Kurssin Nimi</th> 
-            <th>Paikka</th>
-            <th>Kurssin Päivä</th>
-            <th>Aika</th>
-            <th>Ohjaaja</th>
-        </tr>
-       <tr th:each = "course : ${courses}">
-    		<td th:text="${course.courseName}"></td>
-    		<td th:text="${course.place}"></td>    
-    		<td th:text="${course.date}"></td>   
-    		<td th:text="${course.time}"></td> 
-    		<td th:text="${course.coach}"></td> 
-    		
-    		<td><a th:href="@{/delete/{id}(id=${course.id})}">Delete</a><td>
-    		<td><a th:href="@{/editCourse/{id}(id=${course.id})}" style="color: blue;">Edit</a></td>
-    		
-    		
-    		<tr>
-    	<td>
-    	<a th:href="@{/showForm}">Add new course</a>
-    	</td>
-    	</tr>
-    </table>
+    <div class="container">
+        <h2 class="my-4">Kurssien Lista</h2>
+        <div class="row">
+            
+            <div th:each="course : ${courses}" class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${course.courseName}"></h5>
+                        <p class="card-text">Paikka: <span th:text="${course.place}"></span></p>
+                        <p class="card-text">Päivä: <span th:text="${course.date}"></span></p>
+                        <p class="card-text">Aika: <span th:text="${course.time}"></span></p>
+                        <p class="card-text">Ohjaaja: <span th:text="${course.coach}"></span></p>
+                        <div class="d-flex justify-content-between">
+                        
+                            <a th:href="@{/editCourse/{id}(id=${course.id})}" class="btn btn-success">Edit</a>
+                            <a th:href="@{/delete/{id}(id=${course.id})}" class="btn btn-danger">Delete</a>
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <a th:href="@{/showForm}" class="btn btn-primary">Add new course</a>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
