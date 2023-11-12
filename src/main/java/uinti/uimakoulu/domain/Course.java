@@ -1,9 +1,14 @@
 package uinti.uimakoulu.domain;
 
+
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Course {
@@ -12,9 +17,14 @@ public class Course {
 	private Long id;
 	private String courseName, place, date, time,coach;
 	
+	@ManyToOne
+	@JoinColumn(name="poolid")
+	private Pool pool;
+	
+	
 	public Course() {}
 	
-	public Course(Long id, String courseName, String place, String date, String time, String coach) {
+	public Course(Long id, String courseName, String place, String date, String time, String coach, Pool pool) {
 		super();
 		this.id = id;
 		this.courseName = courseName;
@@ -22,6 +32,8 @@ public class Course {
 		this.date = date;
 		this.time = time;
 		this.coach = coach;
+		this.pool = pool;
+	
 	}
 	
 	public Long getId() {
@@ -54,16 +66,31 @@ public class Course {
 	public void setTime(String time) {
 		this.time = time;
 	}
+	public Pool getPool() {
+		return pool;
+	}
+
+	public void setPool(Pool pool) {
+		this.pool = pool;
+	}
+	
+
 	public String getCoach() {
 		return coach;
 	}
 	public void setCoach(String coach) {
 		this.coach = coach;
 	}
+
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", courseName=" + courseName + ", place=" + place + ", date=" + date + ", time="
-				+ time + ", coach=" + coach + "]";
+		if (this.pool !=null)
+			return "Course [id=" + id + ", courseName=" + courseName + ", place=" + place + ", date=" + date + ", time="
+				+ time + ", coach=" + coach + ", pool=" + pool + "]";
+		else
+			return "Course [id=" + id + ", courseName=" + courseName + ", place=" + place + ", date=" + date + ", time="
+					+ time + ", coach=" + coach + "]";
 	}
+	
 	
 }
