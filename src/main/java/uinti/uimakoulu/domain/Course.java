@@ -9,13 +9,28 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Course {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO) // primary key
 	private Long id;
-	private String courseName, place, date, time,coach;
+	
+	@NotBlank(message="Lisää kurssin nimi!")
+	private String courseName;
+	
+	@NotBlank(message="Paikka ei voi olla tyhjä")
+	private String place;
+	
+	@NotBlank(message="Päiväys ei voi olla tyhjä")
+	private String date;
+	
+	@NotBlank(message="Aika ei voi olla tyhjä")
+	private String time;
+	
+	
+	private String coach;
 	
 	@ManyToOne
 	@JoinColumn(name="poolid")
@@ -42,6 +57,7 @@ public class Course {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	public String getCourseName() {
 		return courseName;
 	}

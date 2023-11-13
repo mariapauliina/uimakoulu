@@ -4,16 +4,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-
-
+import jakarta.validation.Valid;
 import uinti.uimakoulu.domain.Course;
 import uinti.uimakoulu.domain.CourseRepository;
 import uinti.uimakoulu.domain.PoolRepository;
@@ -32,30 +31,30 @@ public class UimakouluController {
 		return "listCourses";
 	}
 	
-	@GetMapping("/showForm") //näyttää lomakkeen uuden kurssin lisäämistä varten
+	@GetMapping("/showForm")
 	public String showForm(Model model) {
-	model.addAttribute("course", new Course());
-	model.addAttribute("pools", prepository.findAll());
-	return "addNewCourse";
+	    model.addAttribute("course", new Course());
+	    model.addAttribute("pools", prepository.findAll());
+	    return "addNewCourse";
 	}
-	
-	@PostMapping(value="/save") // tallentaa uuden kurssin lomakkeelta
-	public String save(@ModelAttribute Course course) {
-	    // Check if the pool is a new instance (unsaved)
-	    if (course.getPool() != null && course.getPool().getPoolid() == null) {
-	        // Save the new pool
+
+	@PostMapping("/add")
+	public String addCourse(@Valid Course course, BindingResult result, Model model) {
+	    if (result.hasErrors()) {
+	        model.addAttribute("pools", prepository.findAll());
+	        return "addNewCourse";
+	    }if (course.getPool() != null && course.getPool().getPoolid() == null) {
+	        // Tallenna uimahalli, jos se ei ole vielä tallennettu
 	        prepository.save(course.getPool());
 	    }
 
-	    // Save the course (this will also save the pool if it's a new instance)
-	    repository.save(course);
+	    repository.save(course); // Tallennetaan kurssi tietokantaan
 
-	    return "redirect:listCourses";
+	    return "redirect:/listCourses"; // Ohjataan käyttäjä kurssien listaussivulle (voit muuttaa polkua tarpeidesi mukaan)
 	}
-	
-	
-	
 
+	
+	
 		
 	
 	@GetMapping(value="/delete/{id}") //kurssin poistaminen

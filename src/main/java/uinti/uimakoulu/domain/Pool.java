@@ -15,12 +15,17 @@ public class Pool {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long poolid;
-
     private String poolName;
     
 
-    @OneToMany(mappedBy = "pool", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pool")
     private List<Course> courses;
+    
+    public Pool() {}
+    public Pool(String poolName) {
+    	super();
+    	this.poolName = poolName;
+    }
 
     public Long getPoolid() {
         return poolid;

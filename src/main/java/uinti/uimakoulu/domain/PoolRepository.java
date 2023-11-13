@@ -1,7 +1,13 @@
 package uinti.uimakoulu.domain;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PoolRepository extends JpaRepository<Pool, Long> {
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
+
+
+public interface PoolRepository extends CrudRepository<Pool, Long> {
+	List<Pool> findByPoolName(String poolname);
 }
 
