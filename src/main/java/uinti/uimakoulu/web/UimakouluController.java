@@ -50,7 +50,7 @@ public class UimakouluController {
 
 	    repository.save(course); // Tallennetaan kurssi tietokantaan
 
-	    return "redirect:/listCourses"; // Ohjataan käyttäjä kurssien listaussivulle (voit muuttaa polkua tarpeidesi mukaan)
+	    return "redirect:/listCourses"; // Ohjataan käyttäjä kurssien listaussivulle 
 	}
 
 	
