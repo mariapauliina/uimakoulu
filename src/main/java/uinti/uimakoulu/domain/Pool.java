@@ -2,6 +2,8 @@ package uinti.uimakoulu.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +19,7 @@ public class Pool {
     private Long poolid;
     private String poolName;
     
-
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pool")
     private List<Course> courses;
     

@@ -1,5 +1,6 @@
 package uinti.uimakoulu.web;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import jakarta.validation.Valid;
 import uinti.uimakoulu.domain.Course;
@@ -31,7 +35,7 @@ public class UimakouluController {
 		return "listCourses";
 	}
 	
-	@GetMapping("/showForm")
+	@GetMapping("/showForm") //näyttää lisäyslomakkeen
 	public String showForm(Model model) {
 	    model.addAttribute("course", new Course());
 	    model.addAttribute("pools", prepository.findAll());
@@ -40,7 +44,7 @@ public class UimakouluController {
 
 	@PostMapping("/add")
 	public String addCourse(@Valid Course course, BindingResult result, Model model) {
-	    if (result.hasErrors()) {
+	    if (result.hasErrors()) { // tarkistaa onko kurssille lisätty uimahalli
 	        model.addAttribute("pools", prepository.findAll());
 	        return "addNewCourse";
 	    }if (course.getPool() != null && course.getPool().getPoolid() == null) {
@@ -64,7 +68,7 @@ public class UimakouluController {
 	}
 	
 	 @GetMapping("/editCourse/{id}")
-	    public String showEditCourseForm(@PathVariable Long id, Model model) { //muokkaaminen
+	    public String showEditCourseForm(@PathVariable Long id, Model model) { //näyttää kurssin muokkauslomakkeen, hakee muokattavan kurssin ja välittää ne näkymään
 	        Course course = repository.findById(id).orElse(null);
 	        model.addAttribute("course", course);
 	        model.addAttribute("pools", prepository.findAll());
@@ -72,12 +76,14 @@ public class UimakouluController {
 	    }
 
 	    @PostMapping("/editCourse")
-	    public String editCourse(@ModelAttribute Course course) {
+	    public String editCourse(@ModelAttribute Course course) { //käsittelee lomakkeen, tallentaa muutetun kurssin tietokantaan
 	        repository.save(course); 
 	        return "redirect:/listCourses";
 	    }
 	   
+	   
+	    	
 	    
-	
-	
+	    
+	    
 }
